@@ -18,9 +18,9 @@ using  Microsoft.Owin.Host.SystemWeb;
 
 namespace DBMS.Functions
 {
-    public class UserFunctions : UserInterface
+    public class UserFunctions : IUserInterface
     {
-        public async Task CreateUser(string username, string password, string role)
+        public async Task<bool> CreateUser(string username, string password, string role)
         {
             var userStore = new UserStore<IdentityUser>();
             var manager = new UserManager<IdentityUser>(userStore);
@@ -33,19 +33,22 @@ namespace DBMS.Functions
                 {
                     db.Users.Add(new User()
                     {
-                        ID = Guid.NewGuid().ToString(), username = username, role = role
+                        Id = Guid.NewGuid().ToString(), Username = username, Role = role
 
                     });
                     await db.SaveChangesAsync();
+                    
                 }
                 var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                 var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                 authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
-
+                return true;
             }
+
+            return false;
         }
 
-        public async Task<bool> SignIn(string username,string password)
+        public bool SignIn(string username,string password)
         {
             var userStore = new UserStore<IdentityUser>();
             var userManager = new UserManager<IdentityUser>(userStore);
@@ -71,5 +74,18 @@ namespace DBMS.Functions
             authenticationManager.SignOut();
             
         }
+
+        public string GetUserRole(string username)
+        {
+            string role;
+            using (var db = new DBMS.Context())
+            {
+                role = db.Users.First(sh => sh.Username == username).Role;
+            }
+
+            return role;
+        }
+
+     
     }
 }

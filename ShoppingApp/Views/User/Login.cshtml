@@ -6,17 +6,47 @@
 <h2>Login</h2>
 
 <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-check">
-      <a href="@Url.Action("Register","User")">Don't have an account Register Here!</a>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter Username">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div class="form-check">
+        <a href="@Url.Action("Register","User")">Don't have an account Register Here!</a>
+    </div>
+    <button type="button" id="login" class="btn btn-primary">Submit</button>
 </form>
+
+<script>
+    $("#login").click(function () {
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+
+        var items = {
+            username: username,
+            password: password
+
+        };
+        var data = JSON.stringify({ 'model': items });
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CallLogin", "User")',
+            dataType: 'json',
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+                if (data.success == true) {
+                    window.location.href = '/Shop/Index';
+                } else {
+                    alert("Οι κωδικοί πρόσβασης δεν ταιριάζουν");
+                }
+            }
+        });
+    });
+</script>

@@ -7,16 +7,16 @@
 
 <form>
     <div class="form-group">
-        <label for="exampleInputEmail1">Username</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Username">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter Username">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="password1">Password</label>
+        <input type="password" class="form-control" id="password1" placeholder="Password">
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword2">Password Confirm</label>
-        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password Confirm">
+        <label for="password2">Password Confirm</label>
+        <input type="password" class="form-control" id="password2" placeholder="Password Confirm">
     </div>
     <div class="form-group">
         <label for="role">Select Role</label>
@@ -29,7 +29,35 @@
 </form>
 
 <script>
-    $( "#register" ).click(function() {
-        alert( "Handler for .click() called." );
+    $("#register").click(function () {
+        if ($("#password1").val()!= $("#password2").val())
+        {
+            alert("Οι κωδικοί δεν ταιριάζουν");
+            return;
+        }
+        var username = $("#username").val();
+        var password = $("#password1").val();
+        var role = $("#role").val();
+
+        var items = {
+            username: username,
+            password: password,
+            role: role
+        };
+        var data = JSON.stringify({ 'model': items });
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '@Url.Action("CallRegister","User")',
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.success == true)
+                {
+                    alert("User Made");
+                    }
+
+            }
+            });
     });
 </script>

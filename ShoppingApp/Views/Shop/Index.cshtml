@@ -1,0 +1,19 @@
+﻿@model  ShoppingApp.Models.ProductClass
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.UserRole.Contains("employ"))
+    {
+        <h2>Employe Panel</h2>
+    }
+    else
+    {
+        <h2>Customer Panel</h2>
+    }
+}
+
+

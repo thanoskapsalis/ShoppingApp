@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DBMS.Interfaces
 {
-    public interface UserInterface
+    public interface IUserInterface
     {
-        Task CreateUser(string username, string password, string role);
-        Task<bool> SignIn(string username, string password);
+        Task<bool> CreateUser(string username, string password, string role);
+        bool SignIn(string username, string password);
         void SignOut(object sender, EventArgs e);
+        string GetUserRole(string username);
     }
 }

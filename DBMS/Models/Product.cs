@@ -8,8 +8,10 @@ namespace DBMS.Models
 {
     public class Product
     {
-        public string ID { get; set; }
-        public string name { get; set; }
-        public int quantity { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+        public int Price { get; set; }
+        public int ImageUrl { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace DBMS.Models
 {
     public class Card
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string ProductCodes { get; set; }
         public string ProductQuantities { get; set; }
     }

@@ -8,8 +8,8 @@ namespace DBMS.Models
 {
     public class User
     {
-        public string ID { get; set; }
-        public string username { get; set; }
-        public string role { get; set; }
+        public string Id { get; set; }
+        public string Username { get; set; }
+        public string Role { get; set; }
     }
 }
