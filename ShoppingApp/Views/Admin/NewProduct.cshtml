@@ -5,30 +5,45 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    if (Model.UserRole == "employee")
+    if (Model.UserRole.Contains("Employee"))
     {
         <h2>Add a new Product</h2>
         <form>
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <label for="quantity">Password</label>
-                <input type="text" class="form-control" id="quantity" placeholder="quantity">
+                <label for="quantity">Quantity</label>
+                <input type="text" class="form-control" id="quantity" placeholder="Quantity">
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
                 <input type="text" class="form-control" id="price" placeholder="Price">
             </div>
+            <div class="input-group mb-3">
+                <input type="text" id="imageUrl" class="form-control" placeholder="Image Url" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="checkImage" type="button">Check Url</button>
+                </div>
+            </div>
+           
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
+        <br/>
+        <div >
+            <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
+        </div>
+
     }
     else
     {
         <h2>You are not authorized to view this page</h2>
     }
 }
-<h2>NewProduct</h2>
 
+<script>
+    $( "#checkImage" ).click(function() {
+        alert( "Handler for .click() called." );
+    });
+</script>

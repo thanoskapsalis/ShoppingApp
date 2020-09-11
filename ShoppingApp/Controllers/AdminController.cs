@@ -21,12 +21,11 @@ namespace ShoppingApp.Controllers
             using (var client = new WebClient())
             {
                 client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                var data = "=thankap";
+                var data = "=" + User.Identity.Name;
                 var result = client.UploadString("https://localhost:44362/api/UserApi/GetUserRole", "POST", data);
-                Console.WriteLine(result);
-                Console.WriteLine(result);
+                product.UserRole=result;
             }
-            return View();
+            return View(product);
         }
     }
 }
