@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  shoppingapp:
+    image: ${DOCKER_REGISTRY-}shoppingapp
+    build:
+      context: .\ShoppingApp
+      dockerfile: Dockerfile

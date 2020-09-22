@@ -27,14 +27,13 @@
                     <button class="btn btn-outline-secondary" id="checkImage" type="button">Check Url</button>
                 </div>
             </div>
-           
-            <button type="submit" class="btn btn-primary">Add</button>
+
+            <button type="button" id="addProduct" class="btn btn-primary">Add</button>
         </form>
         <br/>
         <div >
             <img src="https://placehold.it/80x80" id="preview" class="img-thumbnail">
         </div>
-
     }
     else
     {
@@ -43,7 +42,37 @@
 }
 
 <script>
-    $( "#checkImage" ).click(function() {
-        alert( "Handler for .click() called." );
+    $("#checkImage").click(function() {
+        var url = $("#imageUrl").val();
+        $('#preview').attr('src', url);
+    });
+
+    $("#addProduct").click(function() {
+        var name = $("#name").val();
+        var price = $("#price").val();
+        var quantity = $("#quantity").val();
+        var url = $("#imageUrl").val();
+
+        var items = {
+            ProductName: name,
+            ProductPrice: price,
+            ProductQuantity: quantity,
+            ProductImage: url
+        };
+        var data = JSON.stringify({ 'model': items });
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddProduct", "Admin")',
+            dataType: 'json',
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            success: function(data) {
+                if (data.success == true) {
+                    alert("Το προϊόν προστέθηκε με επιτυχία στη βάση");
+                } else {
+                    alert("Υπήρξε πρόβλημα στην εισαγωγή");
+                }
+            }
+        });
     });
 </script>

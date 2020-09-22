@@ -1,0 +1,36 @@
+﻿@model ShoppingApp.Models.ProductClass
+@{
+    ViewBag.Title = "MyCart";
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    
+        <table id="table" style="width: 100%" class="table table-striped">
+            <tr>
+
+                <th>Items</th>
+                <th>Qunatities</th>
+                <th>Actions</th>
+
+            </tr>
+            @foreach (var items in Model.Cards)
+            {
+                <tr>
+
+                    <td>
+                        @items.ProductCodes
+                    </td>
+                    <td>
+                        @items.ProductQuantities
+                    </td>
+                    <td>
+                        <a type="button" class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {id = items.Id})">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    
+}

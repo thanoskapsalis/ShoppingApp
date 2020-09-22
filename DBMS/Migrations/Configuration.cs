@@ -1,11 +1,8 @@
-﻿namespace DBMS.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+﻿using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DBMS.Context>
+namespace DBMS.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<Context>
     {
         public Configuration()
         {
@@ -13,7 +10,7 @@
             MigrationsDirectory = @"Migrations";
         }
 
-        protected override void Seed(DBMS.Context context)
+        protected override void Seed(Context context)
         {
             //  This method will be called after migrating to the latest version.
 

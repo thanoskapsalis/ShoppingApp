@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Register";
 }
 
@@ -29,9 +28,8 @@
 </form>
 
 <script>
-    $("#register").click(function () {
-        if ($("#password1").val()!= $("#password2").val())
-        {
+    $("#register").click(function() {
+        if ($("#password1").val() != $("#password2").val()) {
             alert("Οι κωδικοί δεν ταιριάζουν");
             return;
         }
@@ -48,16 +46,15 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '@Url.Action("CallRegister","User")',
+            url: '@Url.Action("CallRegister", "User")',
             data: data,
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.success == true)
-                {
+            success: function(data) {
+                if (data.success == true) {
                     alert("User Made");
-                    }
+                }
 
             }
-            });
+        });
     });
 </script>

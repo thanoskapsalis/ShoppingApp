@@ -1,20 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.UI.WebControls;
 using DBMS.Interfaces;
 using DBMS.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using  Microsoft.Owin.Host.SystemWeb;
-
 
 namespace DBMS.Functions
 {
@@ -24,61 +16,57 @@ namespace DBMS.Functions
         {
             var userStore = new UserStore<IdentityUser>();
             var manager = new UserManager<IdentityUser>(userStore);
-            var user = new IdentityUser() { UserName =username };
-            IdentityResult result = manager.Create(user, password);
+            var user = new IdentityUser {UserName = username};
+            var result = manager.Create(user, password);
 
             if (result.Succeeded)
             {
                 using (var db = new Context())
                 {
-                    db.Users.Add(new User()
+                    db.Users.Add(new User
                     {
                         Id = Guid.NewGuid().ToString(), Username = username, Role = role
-
                     });
                     await db.SaveChangesAsync();
-                    
                 }
+
                 var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                 var userIdentity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-                authenticationManager.SignIn(new AuthenticationProperties() { }, userIdentity);
+                authenticationManager.SignIn(new AuthenticationProperties(), userIdentity);
                 return true;
             }
 
             return false;
         }
 
-        public bool SignIn(string username,string password)
+        public bool SignIn(string username, string password)
         {
             var userStore = new UserStore<IdentityUser>();
             var userManager = new UserManager<IdentityUser>(userStore);
-            var user = userManager.Find(username,password);
+            var user = userManager.Find(username, password);
 
             if (user != null)
             {
                 var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
                 var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
-                authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
+                authenticationManager.SignIn(new AuthenticationProperties {IsPersistent = false}, userIdentity);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public void SignOut(object sender, EventArgs e)
         {
             var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
             authenticationManager.SignOut();
-            
         }
 
         public string GetUserRole(string username)
         {
             string role;
-            using (var db = new DBMS.Context())
+            using (var db = new Context())
             {
                 role = db.Users.First(sh => sh.Username == username).Role;
             }
@@ -86,6 +74,12 @@ namespace DBMS.Functions
             return role;
         }
 
-     
+        public string GetUserId(string username)
+        {
+            using (var db = new Context())
+            {
+                return db.Users.First(sh => sh.Username == username).Id;
+            }
+        }
     }
 }

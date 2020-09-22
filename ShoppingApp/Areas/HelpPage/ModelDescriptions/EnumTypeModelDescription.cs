@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ShoppingApp.Areas.HelpPage.ModelDescriptions
@@ -10,6 +9,6 @@ namespace ShoppingApp.Areas.HelpPage.ModelDescriptions
             Values = new Collection<EnumValueDescription>();
         }
 
-        public Collection<EnumValueDescription> Values { get; private set; }
+        public Collection<EnumValueDescription> Values { get; }
     }
 }

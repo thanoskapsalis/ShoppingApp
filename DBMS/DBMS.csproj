@@ -83,7 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Functions\ProductFunctions.cs" />
     <Compile Include="Functions\UserFunctions.cs" />
+    <Compile Include="Interfaces\ProductInterface.cs" />
     <Compile Include="Interfaces\UserInterface.cs" />
     <Compile Include="Migrations\202009061303039_Initial.cs" />
     <Compile Include="Migrations\202009061303039_Initial.designer.cs">
@@ -92,6 +94,14 @@
     <Compile Include="Migrations\202009100755004_Initial2.cs" />
     <Compile Include="Migrations\202009100755004_Initial2.designer.cs">
       <DependentUpon>202009100755004_Initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009111337010_Intial3.cs" />
+    <Compile Include="Migrations\202009111337010_Intial3.designer.cs">
+      <DependentUpon>202009111337010_Intial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009151155563_Initial4.cs" />
+    <Compile Include="Migrations\202009151155563_Initial4.designer.cs">
+      <DependentUpon>202009151155563_Initial4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Card.cs" />
@@ -110,6 +120,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009100755004_Initial2.resx">
       <DependentUpon>202009100755004_Initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009111337010_Intial3.resx">
+      <DependentUpon>202009111337010_Intial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009151155563_Initial4.resx">
+      <DependentUpon>202009151155563_Initial4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

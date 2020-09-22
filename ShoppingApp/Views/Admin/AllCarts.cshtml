@@ -1,0 +1,44 @@
+﻿@model ShoppingApp.Models.ProductClass
+@{
+    ViewBag.Title = "AllCarts";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.UserRole.Contains("Employee"))
+    {
+        <table id="table" style="width: 100%" class="table table-striped">
+            <tr>
+
+                <th>Items</th>
+                <th>Qunatities</th>
+                <th>Actions</th>
+                <th>User By</th>
+
+            </tr>
+            @foreach (var items in Model.Cards)
+            {
+                <tr>
+
+                    <td >
+                        @items.ProductCodes
+                    </td>
+                    <td>
+                        @items.ProductQuantities
+                    </td>
+                    <td>
+                        <a type="button" class="btn btn-danger" href="@Url.Action("Delete", "Admin", new {id = items.Id})">Delete</a>
+                    </td>
+                    <td>
+                        @items.Uploader
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h2>You are not authorized to see that page</h2>
+    }
+}

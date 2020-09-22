@@ -3,17 +3,70 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+<h2>Welcome to Our Store</h2>
+<p>Here you can see all the avaliable Products as well as buy some</p>
 @if (User.Identity.IsAuthenticated)
 {
-    if (Model.UserRole.Contains("employ"))
-    {
-        <h2>Employe Panel</h2>
-    }
-    else
-    {
-        <h2>Customer Panel</h2>
-    }
+    <form id="items">
+        <table id="table" style="width: 100%" class="table table-striped">
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Add</th>
+                <th>Price</th>
+
+            </tr>
+            @foreach (var items in Model.Products.OrderBy(sh => sh.Name).Where(sh => sh.Quantity != 0))
+            {
+                <tr>
+                    <td>
+                        <img width="50" height="50" src="@items.ImageUrl" alt="Card image cap">
+                    </td>
+                    <td >
+                        <input readonly="readonly" value="@items.Name"/>
+                    </td>
+                    <td>
+                        <input id="quantity" class="quantity" placeholder="@items.Quantity items left"/>
+                    </td>
+                    <td>
+                        @items.Price <text>Euro</text>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <button class="btn btn-success" type="submit">Make Order</button>
+    </form>
 }
 
+<script>
+    $("#items").submit(function(event) {
+        event.preventDefault();
+        $('#table').each(function() {
+            var vals = [];
+            var customerId = $(this).find("td");
+            var items = customerId.find("input:first");
+            for (var i = 0; i < items.length; i++) {
+                vals.push(items[i].value);
+            }
+            var data = JSON.stringify({ 'model': vals });
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Order", "Shop")',
+                dataType: 'json',
+                data: data,
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    if (data.success == true) {
+                        alert("Η παραγγελεία ηταν επιτυχής ποσό πληρωμής: " + data.price + "ευρώ");
+                    } else {
+                        alert("Οι κωδικοί πρόσβασης δεν ταιριάζουν");
+                    }
+                }
+            });
 
+        });
+
+    });
+</script>
