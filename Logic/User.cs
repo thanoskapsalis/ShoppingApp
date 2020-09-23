@@ -30,5 +30,15 @@ namespace Logic
         {
             return _userInterface.GetUserId(username);
         }
+
+        public void SignOut ()
+        {
+            _userInterface.SignOut();
+        }
+
+        public string GetUsername(string id)
+        {
+            return _userInterface.GetUsername(id);
+        }
     }
 }

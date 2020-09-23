@@ -57,7 +57,9 @@ namespace DBMS.Functions
             return false;
         }
 
-        public void SignOut(object sender, EventArgs e)
+        
+
+        public void SignOut()
         {
             var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
             authenticationManager.SignOut();
@@ -79,6 +81,14 @@ namespace DBMS.Functions
             using (var db = new Context())
             {
                 return db.Users.First(sh => sh.Username == username).Id;
+            }
+        }
+
+        public string GetUsername(string id)
+        {
+            using (var db = new Context ())
+            {
+                return db.Users.First(sh => sh.Id == id).Username;
             }
         }
     }

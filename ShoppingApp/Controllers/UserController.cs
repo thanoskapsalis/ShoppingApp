@@ -46,5 +46,13 @@ namespace ShoppingApp.Controllers
 
             return Json(new {success = false});
         }
+
+        public ActionResult SignOut()
+        {
+            Logic.User us = new User ();
+            us.SignOut ();
+            return Redirect("/User/Login");
+
+        }
     }
 }

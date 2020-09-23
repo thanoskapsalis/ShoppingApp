@@ -70,6 +70,11 @@ namespace ShoppingApp.Controllers
                     }
                 );
                 task.Wait();
+                var us = new Logic.User();
+                foreach (var items in allCards)
+                {
+                    items.Uploader=us.GetUsername(items.Uploader);
+                }
                 product.Cards = allCards;
             }
 

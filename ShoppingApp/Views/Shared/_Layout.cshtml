@@ -34,8 +34,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("NewProduct", "Admin")">Add new Product</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login", "User")">@User.Identity.Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("SignOut", "User")">Sign out</a>
+                </li>
             }
-
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login", "User")">Login</a>
+                </li>
+ 
+            }
+            
         </ul>
     </div>
 </nav>
